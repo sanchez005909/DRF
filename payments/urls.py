@@ -8,7 +8,7 @@ app_name = PaymentsConfig.name
 
 
 urlpatterns = [
-    path('payment_create', PaymentCreateAPIView.as_view(), name='payment_create'),
-    path('payment_list', PaymentListAPIView.as_view(), name='payment-list'),
+    path('payment_create/', PaymentCreateAPIView.as_view(), name='payment_create'),
+    path('payment_list/', PaymentListAPIView.as_view(), name='payment-list'),
     ]
 
