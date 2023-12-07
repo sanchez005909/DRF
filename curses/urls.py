@@ -12,10 +12,10 @@ router = DefaultRouter()
 router.register(r'curses', CursViewSet, basename='curses')
 
 urlpatterns = [
-    path('lesson_create', LessonCreateAPIView.as_view(), name='lesson-create'),
-    path('lesson', LessonListAPIView.as_view(), name='lesson-list'),
-    path('lesson_detail/<int:pk>', LessonRetrieveAPIView.as_view(), name='lesson-detail'),
-    path('lesson_update/<int:pk>', LessonUpdateAPIView.as_view(), name='lesson-update'),
-    path('lesson_destroy/<int:pk>', LessonDestroyAPIView.as_view(), name='lesson-destroy'),
+    path('lesson_create/', LessonCreateAPIView.as_view(), name='lesson-create'),
+    path('lesson/', LessonListAPIView.as_view(), name='lesson-list'),
+    path('lesson_detail/<int:pk>/', LessonRetrieveAPIView.as_view(), name='lesson-detail'),
+    path('lesson_update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson-update'),
+    path('lesson_destroy/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson-destroy'),
     ] + router.urls
 
