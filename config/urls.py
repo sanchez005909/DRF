@@ -20,6 +20,8 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('curses.urls', namespace='curses')),
-] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+                  path('admin/', admin.site.urls),
+                  path('', include('curses.urls', namespace='curses')),
+                  path('payments/', include('payments.urls', namespace='payments')),
+                  path('users/', include('users.urls', namespace='users')),
+              ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
