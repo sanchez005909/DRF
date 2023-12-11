@@ -1,7 +1,6 @@
 # from django.urls import path
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-
 from curses.apps import CursesConfig
 from curses.views import CursViewSet, LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, \
     LessonUpdateAPIView, LessonDestroyAPIView
@@ -17,5 +16,6 @@ urlpatterns = [
     path('lesson_detail/<int:pk>/', LessonRetrieveAPIView.as_view(), name='lesson-detail'),
     path('lesson_update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson-update'),
     path('lesson_destroy/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson-destroy'),
+
     ] + router.urls
 
