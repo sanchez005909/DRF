@@ -2,10 +2,10 @@ from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from curses.models import Curs, Lesson
+from curses.models import Curs, Lesson, Subscription
 # from curses.permissions import IsModerator
 from curses.permissions import IsOwner, IsModerator
-from curses.serializers import CursSerializer, LessonSerializer
+from curses.serializers import CursSerializer, LessonSerializer, SubscriptionSerializer
 
 
 class CursViewSet(viewsets.ModelViewSet):
@@ -15,7 +15,7 @@ class CursViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         new_curs = serializer.save()
-        new_curs.owner = self.request.user
+        new_curs.owner = self.request.user.email
         new_curs.save()
 
 
@@ -50,3 +50,13 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 class LessonDestroyAPIView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]
+
+
+class SubscriptionCreateAPIView(generics.CreateAPIView):
+    serializer_class = SubscriptionSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class SubscriptionDestroyAPIView(generics.DestroyAPIView):
+    queryset = Subscription.objects.all()
+    permission_classes = [IsAuthenticated, IsOwner | IsModerator]

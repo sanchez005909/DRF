@@ -1,5 +1,8 @@
 from django.conf import settings
 from django.db import models
+
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -31,3 +34,9 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = 'урок'
         verbose_name_plural = 'уроки'
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
+    course = models.ForeignKey(Curs, on_delete=models.CASCADE, **NULLABLE, verbose_name='курс')
+
