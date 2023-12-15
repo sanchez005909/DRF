@@ -7,17 +7,19 @@ from curses.paginators import CursesPaginator
 # from curses.permissions import IsModerator
 from curses.permissions import IsOwner, IsModerator
 from curses.serializers import CursSerializer, LessonSerializer, SubscriptionSerializer
+from users.models import User
 
 
 class CursViewSet(viewsets.ModelViewSet):
     serializer_class = CursSerializer
-    queryset = Curs.objects.all()
+    queryset = Curs.objects.all().order_by('id')
     permission_classes = [IsAuthenticated]
     pagination_class = CursesPaginator
 
     def perform_create(self, serializer):
         new_curs = serializer.save()
-        new_curs.owner = self.request.user.email
+        user = User.objects.get(email=self.request.user.email)
+        new_curs.owner = user
         new_curs.save()
 
 
@@ -62,4 +64,4 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
 
 class SubscriptionDestroyAPIView(generics.DestroyAPIView):
     queryset = Subscription.objects.all()
-    permission_classes = [IsAuthenticated, IsOwner | IsModerator]
+    permission_classes = [IsAuthenticated, IsModerator]
