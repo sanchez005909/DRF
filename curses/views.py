@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from curses.models import Curs, Lesson, Subscription
+from curses.paginators import CursesPaginator
 # from curses.permissions import IsModerator
 from curses.permissions import IsOwner, IsModerator
 from curses.serializers import CursSerializer, LessonSerializer, SubscriptionSerializer
@@ -12,6 +13,7 @@ class CursViewSet(viewsets.ModelViewSet):
     serializer_class = CursSerializer
     queryset = Curs.objects.all()
     permission_classes = [IsAuthenticated]
+    pagination_class = CursesPaginator
 
     def perform_create(self, serializer):
         new_curs = serializer.save()
@@ -33,6 +35,7 @@ class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated]
+    pagination_class = CursesPaginator
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
