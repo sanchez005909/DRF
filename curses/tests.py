@@ -110,4 +110,4 @@ class CursesAPITestCase(APITransactionTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        # self.assertTrue(Subscription.objects.all().exists())
+        self.assertFalse(Subscription.objects.all().exists())
