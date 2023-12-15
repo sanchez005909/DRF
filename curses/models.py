@@ -10,7 +10,7 @@ class Curs(models.Model):
     title = models.CharField(max_length=100, verbose_name='title')
     image = models.ImageField(verbose_name='картинка', **NULLABLE)
     description = models.TextField(verbose_name='описание')
-    lessons = models.ManyToManyField('Lesson', **NULLABLE)
+    lessons = models.ForeignKey('Lesson', on_delete=models.CASCADE, **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
