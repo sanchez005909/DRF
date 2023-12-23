@@ -24,8 +24,8 @@ class CursSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Curs
-        fields = ['id', 'title', 'description', 'owner', 'lessons_count', 'lessons_', 'subscribers']
-
+        # fields = ['id', 'title', 'description', 'owner', 'lessons_count', 'lessons_', 'subscribers']
+        fields = '__all__'
     def get_lessons_count(self, instance):
         if instance.lessons is None:
             return 0

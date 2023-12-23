@@ -1,14 +1,17 @@
 from django.urls import path
-from rest_framework.routers import DefaultRouter
 
 from payments.apps import PaymentsConfig
-from payments.views import PaymentCreateAPIView, PaymentListAPIView
+from payments.views import StripeCheckoutSessionCreateAPIView, StripeCheckoutSessionRetrieveAPIView, \
+    StripeCheckoutSessionListAPIView, StripeCheckoutSessionDestroyAPIView
 
 app_name = PaymentsConfig.name
 
 
 urlpatterns = [
-    path('payment_create/', PaymentCreateAPIView.as_view(), name='payment_create'),
-    path('payment_list/', PaymentListAPIView.as_view(), name='payment-list'),
-    ]
+    path('create_session/<int:pk>/', StripeCheckoutSessionCreateAPIView.as_view(), name='create_session'),
+    path('session_retrieve/<str:stripe_id>/', StripeCheckoutSessionRetrieveAPIView.as_view(), name='session_retrieve'),
+    path('session_list/', StripeCheckoutSessionListAPIView.as_view(), name='session_list'),
+    path('destroy/<int:pk>/', StripeCheckoutSessionDestroyAPIView.as_view(), name='destroy'),
+
+]
 

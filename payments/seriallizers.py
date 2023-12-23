@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from payments.models import Payment
+from payments.models import StripeCheckoutSession
 
 
-class PaymentSerializer(serializers.ModelSerializer):
+class SessionSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Payment
+        model = StripeCheckoutSession
         fields = '__all__'

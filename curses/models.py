@@ -12,6 +12,23 @@ class Curs(models.Model):
     description = models.TextField(verbose_name='описание')
     lessons = models.ForeignKey('Lesson', on_delete=models.CASCADE, **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
+    price = models.PositiveIntegerField(default=1)
+    is_paid = models.BooleanField(default=False, name="is_paid")
+    # user = models.ForeignKey(User.email, on_delete=models.CASCADE, **NULLABLE, name='')
+
+    @property
+    def display_price(self) -> str:
+        return '${0:.2f}'.format(self.price / 100)
+
+    @property
+    def stripe_price_data(self) -> dict:
+        return {
+            'currency': 'usd',
+            'unit_amount': self.price,
+            'product_data': {
+                'name': self.title,
+            },
+        }
 
     def __str__(self):
         return self.title
