@@ -1,12 +1,12 @@
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-
 from curses.models import Curs, Lesson, Subscription
 from curses.paginators import CursesPaginator
 # from curses.permissions import IsModerator
 from curses.permissions import IsOwner, IsModerator
 from curses.serializers import CursSerializer, LessonSerializer, SubscriptionSerializer
+from curses.tasks import send_mail_for_update
 from users.models import User
 
 
@@ -21,6 +21,10 @@ class CursViewSet(viewsets.ModelViewSet):
         user = User.objects.get(email=self.request.user.email)
         new_curs.owner = user
         new_curs.save()
+
+    def perform_update(self, serializer):
+        update_curs = serializer.save()
+        send_mail_for_update.delay(update_curs.id)
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
