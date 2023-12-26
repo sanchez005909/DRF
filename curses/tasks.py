@@ -9,7 +9,6 @@ from curses.models import Curs, Subscription
 def send_mail_for_update(pk):
     curs = Curs.objects.get(pk=pk)
     subscriptions = Subscription.objects.filter(course=pk)
-    print(subscriptions[0].user)
     subscribers = []
     for subscription in subscriptions:
         subscribers.append(subscription.user)
